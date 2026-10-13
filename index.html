@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101318">
+<title>EggTurner V2 | Aurenix</title>
+
+<style>
+:root {
+  --bg: #0b0d11;
+  --panel: #141820;
+  --panel2: #1b202a;
+  --border: #292f3b;
+  --text: #f4f6fa;
+  --muted: #9aa4b5;
+  --blue: #76a7ff;
+  --green: #6de0a3;
+  --yellow: #ffd166;
+  --red: #ff7474;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at top right, #1a2840 0, transparent 38%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+header {
+  padding: 25px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.brand span { color: var(--blue); }
+
+.badge {
+  color: var(--green);
+  border: 1px solid #315944;
+  background: #14261d;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+main {
+  width: min(1120px, 92%);
+  margin: 35px auto;
+}
+
+.eyebrow {
+  color: var(--blue);
+  letter-spacing: 3px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 10px 0;
+  letter-spacing: -1.5px;
+}
+
+.subtitle {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.card {
+  background: linear-gradient(145deg, var(--panel), #11141a);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  min-width: 0;
+}
+
+.card h2 {
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin: 13px 0 7px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 14px;
+  color: var(--text);
+  background: var(--panel2);
+  font-weight: 700;
+  margin: 5px 4px 0 0;
+}
+
+button.primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #09111e;
+}
+
+button:hover { filter: brightness(1.12); }
+
+.metric {
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin: 8px 0;
+}
+
+.unit {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  background: #252b35;
+  color: var(--muted);
+}
+
+.status.good {
+  background: #153324;
+  color: var(--green);
+}
+
+.status.warn {
+  background: #392d16;
+  color: var(--yellow);
+}
+
+.status.bad {
+  background: #3a1e23;
+  color: var(--red);
+}
+
+.timer {
+  font-size: clamp(35px, 7vw, 55px);
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 14px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress {
+  height: 7px;
+  border-radius: 20px;
+  background: #292f3b;
+  overflow: hidden;
+  margin: 17px 0;
+}
+
+.progress div {
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+  transition: width .3s;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wide { grid-column: 1 / -1; }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+th, td {
+  text-align: left;
+  padding: 11px 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+th { color: var(--muted); }
+
+footer {
+  color: var(--muted);
+  text-align: center;
+  padding: 30px 15px;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media(max-width: 650px) {
+  header { padding: 20px 5%; }
+  main { margin-top: 25px; }
+  .grid { grid-template-columns: 1fr; }
+  .wide { grid-column: auto; }
+  .row { grid-template-columns: 1fr 1fr; }
+  .card { padding: 18px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="brand">AURENIX <span> / </span> EGGTURNER</div>
+  <div class="badge">V2 · DASHBOARD</div>
+</header>
+
+<main>
+  <div class="eyebrow">INCUBATION CONTROL CENTER</div>
+  <h1>Precision incubation.</h1>
+  <p class="subtitle">
+    Monitor your incubation conditions, track your eggs, and keep your
+    turning schedule organized.
+  </p>
+
+  <div class="grid">
+
+    <section class="card">
+      <h2>01 / Temperature</h2>
+      <div class="metric"><span id="tempDisplay">--.-</span><span class="unit"> °C</span></div>
+      <span id="tempStatus" class="status">NO READING</span>
+      <p class="note">Target: 37–38°C</p>
+
+      <label class="label" for="tempInput">Enter current temperature (°C)</label>
+      <input id="tempInput" type="number" min="0" max="60" step="0.1" placeholder="e.g. 37.5">
+      <button class="primary" onclick="saveReading()">Save readings</button>
+    </section>
+
+    <section class="card">
+      <h2>02 / Humidity</h2>
+      <div class="metric"><span id="humidityDisplay">--</span><span class="unit"> %</span></div>
+      <span id="humidityStatus" class="status">NO READING</span>
+      <p class="note">Your target: 55–60%</p>
+
+      <label class="label" for="humidityInput">Enter current humidity (%)</label>
+      <input id="humidityInput" type="number" min="0" max="100" step="1" placeholder="e.g. 58">
+      <button class="primary" onclick="saveReading()">Save readings</button>
+    </section>
+
+    <section class="card">
+      <h2>03 / Egg-turning timer</h2>
+      <div id="timerDisplay" class="timer">--:--:--</div>
+      <span id="timerStatus" class="status">TIMER READY</span>
+
+      <div class="progress"><div id="timerProgress"></div></div>
+
+      <label class="label" for="interval">Turning interval</label>
+      <select id="interval">
+        <option value="3">Every 3 hours</option>
+        <option value="4" selected>Every 4 hours</option>
+        <option value="6">Every 6 hours</option>
+        <option value="8">Every 8 hours</option>
+      </select>
+
+      <button class="primary" onclick="startTimer()">Start / Restart</button>
+      <button onclick="turnedEggs()">I turned the eggs</button>
+      <p class="note">Keep a separate reliable reminder. This browser timer may be delayed if the device sleeps.</p>
+    </section>
+
+    <section class="card">
+      <h2>04 / Incubation progress</h2>
+      <div class="metric">Day <span id="dayDisplay">0</span></div>
+      <p class="note" id="milestone">Set your start date to begin tracking.</p>
+
+      <label class="label" for="startDate">Incubation start date</label>
+      <input id="startDate" type="date">
+
+      <label class="label" for="eggCount">Number of eggs</label>
+      <input id="eggCount" type="number" min="1" max="100" value="4">
+
+      <button class="primary" onclick="saveSetup()">Save setup</button>
+    </section>
+
+    <section class="card wide">
+      <h2>05 / Activity history</h2>
+      <p class="note">Your readings and turning actions are saved in this browser on this device.</p>
+      <button onclick="exportData()">Export history (JSON)</button>
+      <button onclick="clearHistory()">Clear history</button>
+
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Event</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable">
+            <tr><td colspan="3">No activity recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card wide">
+      <h2>06 / Important reminders</h2>
+      <div class="row">
+        <div>
+          <span class="status warn">CHECK DAILY</span>
+          <p class="note">Check the actual incubator temperature and humidity using reliable instruments.</p>
+        </div>
+        <div>
+          <span class="status warn">BEFORE HATCHING</span>
+          <p class="note">For chicken eggs, hatching is typically around day 21. Follow a trusted incubator guide for lockdown timing and conditions.</p>
+        </div>
+      </div>
+      <p class="note">
+        This dashboard does not connect to sensors, control heating,
+        regulate humidity, or guarantee notifications. Always use a
+        properly monitored incubator.
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  AURENIX · EGGTURNER V2<br>
+  Know your conditions. Track every turn. Incubate responsibly.
+</footer>
+
+<script>
+const STORAGE_KEY = "aurenix_eggturner_v2";
+
+let state = {
+  readings: [],
+  events: [],
+  startDate: "",
+  eggCount: 4,
+  interval: 4,
+  deadline: null
+};
+
+let timerInterval = null;
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && typeof saved === "object") {
+      state = { ...state, ...saved };
+    }
+  } catch (error) {
+    console.warn("Could not load saved dashboard data.");
+  }
+
+  document.getElementById("startDate").value = state.startDate || "";
+  document.getElementById("eggCount").value = state.eggCount || 4;
+  document.getElementById("interval").value = state.interval || 4;
+
+  renderHistory();
+  updateProgress();
+  updateLatestReadings();
+}
+
+function persist() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (error) {
+    alert("Could not save data in this browser.");
+  }
+}
+
+function logEvent(event, details) {
+  state.events.unshift({
+    time: new Date().toISOString(),
+    event,
+    details
+  });
+
+  state.events = state.events.slice(0, 200);
+  persist();
+  renderHistory();
+}
+
+function getCondition(value, min, max) {
+  if (value === null || value === "" || !Number.isFinite(Number(value))) {
+    return ["NO READING", ""];
+  }
+
+  value = Number(value);
+
+  if (value < min || value > max) {
+    return ["OUT OF TARGET", "bad"];
+  }
+
+  return ["IN TARGET", "good"];
+}
+
+function setStatus(id, result) {
+  const element = document.getElementById(id);
+  element.textContent = result[0];
+  element.className = "status " + result[1];
+}
+
+function updateLatestReadings() {
+  const latest = state.readings[0];
+
+  if (!latest) return;
+
+  document.getElementById("tempDisplay").textContent =
+    latest.temperature == null ? "--.-" : Number(latest.temperature).toFixed(1);
+
+  document.getElementById("humidityDisplay").textContent =
+    latest.humidity == null ? "--" : latest.humidity;
+
+  setStatus("tempStatus", getCondition(latest.temperature, 37, 38));
+  setStatus("humidityStatus", getCondition(latest.humidity, 55, 60));
+
+  if (latest.temperature != null) {
+    document.getElementById("tempInput").value = latest.temperature;
+  }
+
+  if (latest.humidity != null) {
+    document.getElementById("humidityInput").value = latest.humidity;
+  }
+}
+
+function saveReading() {
+  const tempText = document.getElementById("tempInput").value.trim();
+  const humidityText = document.getElementById("humidityInput").value.trim();
+
+  const temperature = tempText === "" ? null : Number(tempText);
+  const humidity = humidityText === "" ? null : Number(humidityText);
+
+  if (temperature === null && humidity === null) {
+    alert("Enter a temperature or humidity reading first.");
+    return;
+  }
+
+  if (temperature !== null && (!Number.isFinite(temperature) || temperature < 0 || temperature > 60)) {
+    alert("Enter a valid temperature between 0 and 60°C.");
+    return;
+  }
+
+  if (humidity !== null && (!Number.isFinite(humidity) || humidity < 0 || humidity > 100)) {
+    alert("Enter a valid humidity between 0 and 100%.");
+    return;
+  }
+
+  state.readings.unshift({
+    time: new Date().toISOString(),
+    temperature,
+    humidity
+  });
+
+  state.readings = state.readings.slice(0, 200);
+
+  logEvent(
+    "Reading saved",
+    "Temperature: " + (temperature === null ? "not entered" : temperature + "°C") +
+    "; humidity: " + (humidity === null ? "not entered" : humidity + "%")
+  );
+
+  updateLatestReadings();
+}
+
+function saveSetup() {
+  state.startDate = document.getElementById("startDate").value;
+  state.eggCount = Number(document.getElementById("eggCount").value);
+  state.interval = Number(document.getElementById("interval").value);
+
+  if (state.eggCount < 1 || state.eggCount > 100 || !Number.isInteger(state.eggCount)) {
+    alert("Enter a whole number of eggs between 1 and 100.");
+    return;
+  }
+
+  if (state.startDate) {
+    const start = new Date(state.startDate + "T00:00:00");
+    if (Number.isNaN(start.getTime()) || start > new Date()) {
+      alert("Choose a valid start date that is today or earlier.");
+      return;
+    }
+  }
+
+  persist();
+  updateProgress();
+  logEvent("Setup saved", state.eggCount + " eggs; interval " + state.interval + " hours.");
+}
+
+function updateProgress() {
+  const output = document.getElementById("dayDisplay");
+  const milestone = document.getElementById("milestone");
+
+  if (!state.startDate) {
+    output.textContent = "0";
+    milestone.textContent = "Set your start date to begin tracking.";
+    return;
+  }
+
+  const start = new Date(state.startDate + "T00:00:00");
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const days = Math.floor((today - start) / 86400000) + 1;
+
+  output.textContent = Math.max(1, days);
+
+  if (days < 18) {
+    milestone.textContent = "Keep monitoring conditions and following your species-specific turning schedule.";
+  } else if (days <= 21) {
+    milestone.textContent = "Late incubation: check your trusted guide for lockdown timing. Chicken eggs commonly hatch around day 21.";
+  } else {
+    milestone.textContent = "Past the typical chicken hatch day. Check your incubator guide and assess the eggs carefully.";
+  }
+}
+
+function startTimer() {
+  state.interval = Number(document.getElementById("interval").value);
+  state.deadline = Date.now() + state.interval * 60 * 60 * 1000;
+
+  persist();
+  logEvent("Timer started", "Next reminder in " + state.interval + " hours.");
+  runTimer();
+}
+
+function turnedEggs() {
+  logEvent("Eggs turned", "Manual turning confirmed.");
+  startTimer();
+}
+
+function runTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+
+  function tick() {
+    if (!state.deadline) {
+      document.getElementById("timerDisplay").textContent = "--:--:--";
+      setStatus("timerStatus", ["TIMER READY", ""]);
+      document.getElementById("timerProgress").style.width = "0%";
+      return;
+    }
+
+    const remaining = Math.max(0, state.deadline - Date.now());
+    const totalSeconds = Math.ceil(remaining / 1000);
+
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    document.getElementById("timerDisplay").textContent =
+      String(hours).padStart(2, "0") + ":" +
+      String(minutes).padStart(2, "0") + ":" +
+      String(seconds).padStart(2, "0");
+
+    const totalMs = (state.interval || 4) * 3600000;
+    const elapsed = Math.max(0, totalMs - remaining);
+    document.getElementById("timerProgress").style.width =
+      Math.min(100, elapsed / totalMs * 100) + "%";
+
+    if (remaining === 0) {
+      setStatus("timerStatus", ["TURN REMINDER DUE", "warn"]);
+      document.title = "TURN EGGS · EggTurner";
+    } else {
+      setStatus("timerStatus", ["TIMER RUNNING", "good"]);
+      document.title = "EggTurner V2";
+    }
+  }
+
+  tick();
+  timerInterval = setInterval(tick, 1000);
+}
+
+function renderHistory() {
+  const table = document.getElementById("historyTable");
+  table.replaceChildren();
+
+  if (!state.events.length) {
+    const row = table.insertRow();
+    const cell = row.insertCell();
+    cell.colSpan = 3;
+    cell.textContent = "No activity recorded yet.";
+    return;
+  }
+
+  state.events.slice(0, 30).forEach(item => {
+    const row = table.insertRow();
+    const date = new Date(item.time);
+
+    row.insertCell().textContent = date.toLocaleString();
+    row.insertCell().textContent = item.event;
+    row.insertCell().textContent = item.details;
+  });
+}
+
+function exportData() {
+  const file = new Blob([JSON.stringify(state, null, 2)], {
+    type: "application/json"
+  });
+
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "eggturner-history.json";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function clearHistory() {
+  if (!confirm("Delete all saved activity and readings from this browser?")) return;
+
+  state.readings = [];
+  state.events = [];
+  persist();
+  renderHistory();
+
+  document.getElementById("tempDisplay").textContent = "--.-";
+  document.getElementById("humidityDisplay").textContent = "--";
+  setStatus("tempStatus", ["NO READING", ""]);
+  setStatus("humidityStatus", ["NO READING", ""]);
+}
+
+loadState();
+
+if (state.deadline) {
+  runTimer();
+} else {
+  runTimer();
+}
+
+setInterval(updateProgress, 60000);
+</script>
+</body>
+</html>
